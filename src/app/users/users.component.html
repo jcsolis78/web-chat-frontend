@@ -1,0 +1,41 @@
+<div class="card border-primary mb-3" >
+    <div class="card-header">Usuarios</div>
+    <div class="card-body text-primary">
+      <h5 class="card-title">Usuarios</h5>
+       
+      <div class="my-2 text-left">
+          <button class="btn btn-rounded btn-primary" type="button" [routerLink] = "['/users/form']">Crear Usuario</button>
+      </div>
+
+      <table class="table table-bordered table-striped" *ngIf="userChats?.length>0">
+          <thead>
+          <tr>
+              <th>id</th>
+              <th>Username</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Color</th>
+              <th>Estado</th>
+              <th>Edit</th>
+              <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let userChat of userChats">
+                <td><button type="button" name="detail" [routerLink] = "['/users/profile', userChat.username]" class="btn btn-summary btn-sm" >{{userChat.id}}</button></td>
+                <td>{{userChat.username}}</td>
+                <td>{{userChat.name}}</td>
+                <td>{{userChat.email}}</td>
+                <td>{{userChat.color}}</td>
+                <td>{{userChat.status}}</td>
+                <td>
+                    <button type="button" name="editar" [routerLink] = "['/users/form', userChat.username]" class="btn btn-primary btn-sm">Edit</button>
+                </td>
+                <td>
+                    <button type="button" name="delete" (click)="delete(userChat)" class="btn btn-danger btn-sm">Delete</button>
+                </td>
+            </tr>            
+        </tbody>
+      </table>
+    </div>
+  </div>

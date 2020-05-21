@@ -1,0 +1,27 @@
+<app-users *ngIf="newUser">campo</app-users>
+<div class="card border-primary text-center">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <form >
+            <div class="form-group col-sm-6 col-sm-offset-3">
+                <input type="text" [(ngModel)]="user.username" class="form-control" 
+                name="username" id="username" placeholder="Username" autofocus required>
+            </div>
+
+
+            <div class="form-group col-sm-6 col-sm-offset-3">
+                <input type="password" [(ngModel)]="user.password" class="form-control" 
+                name="password" id="password" placeholder="Password" required>
+            </div>
+
+            <div class="form-group col-sm-6 col-sm-offset-3">
+                <input (click)="login()" type="submit" class="btn btn-lg btn-primary btn-block" value="Login">                
+            </div>
+
+            <div class="form-group col-sm-6 col-sm-offset-3">
+                <input type="submit" class="btn btn-lg btn-link btn-block" [routerLink] = "['/users/form']" value="New User">                
+            </div>
+
+        </form>
+    </div>
+</div>

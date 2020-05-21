@@ -1,0 +1,84 @@
+<user-profile *ngIf="userSelected" [user] = "userSelected"></user-profile>
+
+<div class="card mx-4 my-y">
+    <div class="card-header">
+         <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item mr-2" *ngIf="!connected">
+                <input type="text" [(ngModel)]="message.username" class="form-control" placeholder="User ID..." name="txtUsername">
+            </li>          
+            <li class="nav-item mr-2">
+                 <button class="btn btn-success" type="button" (click)="connect()"
+                 *ngIf="!connected" [disabled]="!message.username">Conectar</button>
+             </li>
+             <li class="nav-item">
+                 <button class="btn btn-warning" type="button" (click)="unconnect()"
+                 *ngIf="connected">Cerrar</button>
+             </li>
+         </ul>   
+    </div>    
+
+
+    <div class="card-body" style="height: 360px;"
+     *ngIf="connected">
+        <div class="container" style="display: inline-block;" >
+            <div class="row">
+                <div class="col-sm-4 ml-0"  style="margin-left: initial;">
+
+                    <table class="table table-bordered table-striped"  *ngIf="users?.length>0">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Username</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor = "let user of users">                            
+                              <td>
+                                <img (click)="modalOpen(user)" *ngIf="user?.picture" 
+                                src="{{urlBackend}}/api/upload/img/{{user.picture}}" alt="{{user.picture}}" 
+                                class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
+
+                                <img (click)="modalOpen(user)" *ngIf="!user?.picture" 
+                                src="{{urlBackend}}/images/no_user.png" alt="No Picture" 
+                                class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
+
+                              </td>
+                              <td><span [ngStyle]="{'color': user.color}">{{user.username}}</span></td>
+                          </tr>            
+                      </tbody>
+                    </table>
+
+                </div>
+                <div class="col-sm-8" style="margin-right: initial;">
+                    <div #scrollChat [scrollTop]="scrollChat.scrollHeight" class="card-body" style="overflow-y: scroll; height: 340px;"  *ngIf="connected">
+                
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group list-group-item-light" *ngFor = "let message of messages">
+                                            <span *ngIf="message.typeMessage=='MESSAGE'">
+                                                {{message.date | date:'shortTime'}} 
+                                                <span [ngStyle]="{'color': message.color}">{{message.username}}</span> says:<br> {{message.text}}
+                                            </span>
+                                        </li>
+                                    </ul>                       
+
+                    </div>               
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card-footer" *ngIf="connected">
+        <form class="form-inline">
+            <div class="form-group mx-6">
+                <input type="text" [(ngModel)]="message.text" class="form-control" placeholder="Escribe un mensaje..." 
+                name="txtText" (keyup)="writingEvent()">
+            </div>
+            <button class="btn btn-primary" type="submit" (click)="sendMessage()">
+                Enviar
+            </button>
+        </form>
+        <div>{{writing}}</div>
+    </div>
+</div>
