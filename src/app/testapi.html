@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var xmlhttp = new XMLHttpRequest();
+            var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTQ2MDkyNjQsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9PUEVSQURPUiJdLCJqdGkiOiJiNGIzN2E1ZS1hNzhmLTQwNjctYjc1Yi1iZTk3ZmY1YzBhY2MiLCJjbGllbnRfaWQiOiJyb21hcHAiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.Dqsawh1RJ4soIZuuWvCxDQCFCf6haxTN9iUlkz3bMJk';
+
+            let url = "https://nomina-app-azul-server.herokuapp.com/master/listarAreas";
+            //let url = "https://nomina-app-azul-server.herokuapp.com/api/seguridad/usuarios/find-username/user";
+            xmlhttp.open("get", url);
+            xmlhttp.setRequestHeader('Authorization', 'Bearer ' + token);
+            xmlhttp.setRequestHeader('Content-Type', 'application/json');
+            xmlhttp.send();            
+            xmlhttp.addEventListener("readystatechange", () => {
+                if(xmlhttp.readyState == 4){
+                    alert(xmlhttp.responseText);
+                }
+            });
+        </script>
+    </body>
+</html>
